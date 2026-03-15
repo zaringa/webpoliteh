@@ -1,6 +1,46 @@
 @Lab4_HostAddress = http://localhost:5230
 
-GET {{Lab4_HostAddress}}/weatherforecast/
+### Получить список продуктов
+GET {{Lab4_HostAddress}}/api/products
 Accept: application/json
 
-###
+### Получить продукт по id
+GET {{Lab4_HostAddress}}/api/products/1
+Accept: application/json
+
+### Создать продукт (201 + Location)
+POST {{Lab4_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Keyboard",
+  "description": "Mechanical keyboard for programming",
+  "price": 89.99
+}
+
+### Обновить продукт (204)
+PUT {{Lab4_HostAddress}}/api/products/1
+Content-Type: application/json
+
+{
+  "name": "Laptop Pro",
+  "description": "Updated ultrabook for study and development",
+  "price": 1299.99
+}
+
+### Удалить продукт (204)
+DELETE {{Lab4_HostAddress}}/api/products/2
+
+### Проверка 404
+GET {{Lab4_HostAddress}}/api/products/999
+Accept: application/json
+
+### Проверка 400 (валидация)
+POST {{Lab4_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "",
+  "description": "bad",
+  "price": -5
+}

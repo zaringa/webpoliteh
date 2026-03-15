@@ -1,0 +1,65 @@
+@Lab5_HostAddress = http://localhost:5078
+
+GET {{Lab5_HostAddress}}/api/products
+Accept: application/json
+
+###
+GET {{Lab5_HostAddress}}/api/products/1
+Accept: application/json
+
+###
+GET {{Lab5_HostAddress}}/api/products/by-slug/keyboard-rgb
+Accept: application/json
+
+###
+GET {{Lab5_HostAddress}}/api/products/details
+Accept: application/json
+
+###
+GET {{Lab5_HostAddress}}/api/products/archive
+Accept: application/json
+
+###
+POST {{Lab5_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Headphones",
+  "slug": "headphones-pro",
+  "price": 199.99,
+  "createdAt": "2026-03-10T10:00:00Z"
+}
+
+###
+PUT {{Lab5_HostAddress}}/api/products/1
+Content-Type: application/json
+
+{
+  "name": "Laptop Updated",
+  "slug": "laptop-updated",
+  "price": 1300.00
+}
+
+###
+DELETE {{Lab5_HostAddress}}/api/products/1
+Accept: application/json
+
+###
+GET {{Lab5_HostAddress}}/api/students?page=1&pageSize=1&sort=name&year=2025
+Accept: application/json
+
+###
+GET {{Lab5_HostAddress}}/api/students/1/courses
+Accept: application/json
+
+###
+GET {{Lab5_HostAddress}}/api/orders?page=1&pageSize=1&sort=amount&status=paid
+Accept: application/json
+
+###
+GET {{Lab5_HostAddress}}/api/orders/by-date/2026-02-05T11:30:00
+Accept: application/json
+
+###
+GET {{Lab5_HostAddress}}/api/orders/tracking/4c875bc2-9d26-4a12-8bbf-c1bd094f8f19
+Accept: application/json

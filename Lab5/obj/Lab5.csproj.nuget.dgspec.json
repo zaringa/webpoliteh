@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/zarina/webpoliteh/Lab4/Lab4.csproj": {}
+    "/home/zarina/webpoliteh/Lab5/Lab5.csproj": {}
   },
   "projects": {
-    "/home/zarina/webpoliteh/Lab4/Lab4.csproj": {
+    "/home/zarina/webpoliteh/Lab5/Lab5.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/zarina/webpoliteh/Lab4/Lab4.csproj",
-        "projectName": "Lab4",
-        "projectPath": "/home/zarina/webpoliteh/Lab4/Lab4.csproj",
+        "projectUniqueName": "/home/zarina/webpoliteh/Lab5/Lab5.csproj",
+        "projectName": "Lab5",
+        "projectPath": "/home/zarina/webpoliteh/Lab5/Lab5.csproj",
         "packagesPath": "/home/zarina/.nuget/packages/",
-        "outputPath": "/home/zarina/webpoliteh/Lab4/obj/",
+        "outputPath": "/home/zarina/webpoliteh/Lab5/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/zarina/.nuget/NuGet/NuGet.Config"
