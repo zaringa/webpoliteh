@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Интерактивный блок новостей</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <section class="news-portal" aria-labelledby="news-heading">
+        <header class="news-header">
+          <div>
+            <p class="eyebrow">Информационный портал</p>
+            <h1 id="news-heading">Лента новостей</h1>
+            <p class="news-description">
+              Переключайте категории, чтобы заголовок и содержимое менялись
+              реактивно.
+            </p>
+          </div>
+          <div
+            class="category-switch"
+            id="category-switch"
+            role="tablist"
+            aria-label="Категории новостей"
+          ></div>
+        </header>
+
+        <article class="featured-news" aria-live="polite">
+          <p class="featured-news__category" id="featured-category"></p>
+          <h2 class="featured-news__title" id="featured-title"></h2>
+          <p class="featured-news__content" id="featured-content"></p>
+          <div class="featured-news__meta">
+            <span id="featured-time"></span>
+            <span id="featured-priority"></span>
+          </div>
+        </article>
+
+        <section>
+          <h3 class="list-title">Материалы категории</h3>
+          <ul class="news-list" id="news-list"></ul>
+        </section>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
