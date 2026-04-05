@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab8 Static Files</title>
+  <link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+  <header class="hero">
+    <h1>Lab8: Static Files in ASP.NET Core</h1>
+    <p>Types: HTML, CSS, JavaScript, image</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Main page</h2>
+      <p id="clock">Client time will appear here.</p>
+      <button id="refresh-time" type="button">Refresh Time</button>
+    </section>
+
+    <section class="card">
+      <h2>Nested resources</h2>
+      <ul>
+        <li><a href="/pages/info.html">Open nested HTML page</a></li>
+        <li><a href="/assets/css/site.css">Open CSS file</a></li>
+        <li><a href="/assets/js/main.js">Open JavaScript file</a></li>
+        <li><a href="/assets/images/gallery/photo.jpg">Open image file</a></li>
+      </ul>
+    </section>
+
+    <section class="card image-card">
+      <h2>Image preview</h2>
+      <img src="/assets/images/gallery/photo.jpg" alt="Static resource example">
+    </section>
+  </main>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

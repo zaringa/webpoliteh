@@ -1,0 +1,62 @@
+:root {
+  --bg: #f3f7fb;
+  --text: #172035;
+  --card: #ffffff;
+  --accent: #1463ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text);
+  background: linear-gradient(135deg, #eef4ff, #f6f7fb);
+}
+
+.hero {
+  background: var(--accent);
+  color: #fff;
+  padding: 24px 16px;
+  text-align: center;
+}
+
+.container {
+  width: min(900px, 92%);
+  margin: 24px auto;
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 6px 20px rgba(20, 99, 255, 0.12);
+}
+
+button {
+  border: 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+a {
+  color: var(--accent);
+}
+
+.image-card img {
+  max-width: 100%;
+  border-radius: 10px;
+  border: 1px solid #d3ddf6;
+}
