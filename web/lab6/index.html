@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Лабораторная 6 | Таблица оценок</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['"Sora"', 'sans-serif'],
+            },
+            boxShadow: {
+              soft: '0 30px 56px -36px rgba(15, 23, 42, 0.75)',
+            },
+          },
+        },
+      };
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      .grade-cell {
+        --spot-x: 50%;
+        --spot-y: 50%;
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+      }
+
+      .grade-cell::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at var(--spot-x) var(--spot-y),
+          rgba(56, 189, 248, 0.42),
+          transparent 64%
+        );
+        opacity: 0;
+        transition: opacity 180ms ease;
+        z-index: 0;
+      }
+
+      .grade-cell:hover::before,
+      .grade-cell:focus-visible::before {
+        opacity: 1;
+      }
+
+      .grade-cell > span {
+        position: relative;
+        z-index: 1;
+      }
+
+      .progress-ring {
+        transition: stroke-dashoffset 700ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .score-row {
+        transition: background-color 220ms ease, border-color 220ms ease;
+      }
+
+      .score-row:hover {
+        background-color: rgba(15, 23, 42, 0.75);
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-slate-950 font-display text-slate-100">
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      <div class="absolute -left-24 top-0 h-96 w-96 rounded-full bg-cyan-500/20 blur-3xl"></div>
+      <div class="absolute right-0 top-16 h-[28rem] w-[28rem] rounded-full bg-blue-500/25 blur-3xl"></div>
+      <div class="absolute bottom-0 left-1/3 h-80 w-80 rounded-full bg-emerald-500/20 blur-3xl"></div>
+    </div>
+
+    <main class="mx-auto w-full max-w-7xl px-4 py-10 md:px-8">
+      <section class="overflow-hidden rounded-3xl border border-slate-800/90 bg-slate-900/85 shadow-soft backdrop-blur">
+        <header class="border-b border-slate-800 px-6 py-7 md:px-8">
+          <p class="inline-flex rounded-full border border-cyan-300/40 bg-cyan-500/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-cyan-200">
+            Лабораторная работа №6
+          </p>
+          <h1 class="mt-4 text-3xl font-extrabold leading-tight md:text-5xl">Интерактивная таблица оценок</h1>
+          <p class="mt-3 max-w-3xl text-sm text-slate-300 md:text-base">
+            Переставляйте места студентов с анимацией строк, отслеживайте успеваемость через SVG-прогресс-бары и взаимодействуйте с ячейками оценок по наведению.
+          </p>
+
+          <div class="mt-6 grid gap-3 sm:grid-cols-3">
+            <article class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4">
+              <p class="text-xs uppercase tracking-[0.1em] text-slate-400">Студентов</p>
+              <p id="students-total" class="mt-1 text-2xl font-extrabold text-cyan-200">0</p>
+            </article>
+            <article class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4">
+              <p class="text-xs uppercase tracking-[0.1em] text-slate-400">Средний балл группы</p>
+              <p id="class-average" class="mt-1 text-2xl font-extrabold text-emerald-200">0.00</p>
+            </article>
+            <article class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4">
+              <p class="text-xs uppercase tracking-[0.1em] text-slate-400">Лучший результат</p>
+              <p id="top-student" class="mt-1 text-base font-bold text-amber-200">-</p>
+            </article>
+          </div>
+        </header>
+
+        <section class="px-6 py-6 md:px-8">
+          <div class="mb-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div id="controls" class="flex flex-wrap gap-2">
+              <button
+                type="button"
+                data-sort="rating"
+                class="rounded-full border border-cyan-300/50 bg-cyan-500/20 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.1em] text-cyan-100"
+              >
+                По рейтингу
+              </button>
+              <button
+                type="button"
+                data-sort="name"
+                class="rounded-full border border-slate-700 bg-slate-800 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.1em] text-slate-200 transition hover:border-slate-500"
+              >
+                По имени
+              </button>
+              <button
+                type="button"
+                data-sort="shuffle"
+                class="rounded-full border border-slate-700 bg-slate-800 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.1em] text-slate-200 transition hover:border-slate-500"
+              >
+                Случайная перестановка
+              </button>
+            </div>
+
+            <p id="reorder-status" class="text-sm font-medium text-slate-300">Текущий порядок: по рейтингу.</p>
+          </div>
+
+          <div class="overflow-x-auto rounded-2xl border border-slate-800">
+            <table class="min-w-[1020px] w-full border-collapse">
+              <thead class="bg-slate-900">
+                <tr class="text-left text-xs uppercase tracking-[0.1em] text-slate-400">
+                  <th class="px-4 py-3">Место</th>
+                  <th class="px-4 py-3">Студент</th>
+                  <th class="px-4 py-3">Математика</th>
+                  <th class="px-4 py-3">Программирование</th>
+                  <th class="px-4 py-3">Дизайн</th>
+                  <th class="px-4 py-3">Базы данных</th>
+                  <th class="px-4 py-3">Средний балл</th>
+                  <th class="px-4 py-3">Прогресс</th>
+                </tr>
+              </thead>
+              <tbody id="score-table-body" class="divide-y divide-slate-800 bg-slate-900/70"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

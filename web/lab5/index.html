@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Лабораторная 5 | Корзина интернет-магазина</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['"Space Grotesk"', 'sans-serif'],
+            },
+            boxShadow: {
+              soft: '0 30px 55px -38px rgba(15, 23, 42, 0.62)',
+            },
+            keyframes: {
+              badgePop: {
+                '0%': { transform: 'scale(1)' },
+                '30%': { transform: 'scale(1.2)' },
+                '65%': { transform: 'scale(0.92)' },
+                '100%': { transform: 'scale(1)' },
+              },
+            },
+            animation: {
+              'badge-pop': 'badgePop 360ms cubic-bezier(0.2, 0.8, 0.2, 1)',
+            },
+          },
+        },
+      };
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="min-h-screen bg-slate-950 font-display text-slate-100">
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      <div class="absolute -left-24 top-0 h-96 w-96 rounded-full bg-cyan-500/25 blur-3xl"></div>
+      <div class="absolute right-0 top-20 h-[28rem] w-[28rem] rounded-full bg-fuchsia-500/20 blur-3xl"></div>
+      <div class="absolute bottom-0 left-1/4 h-80 w-80 rounded-full bg-emerald-500/20 blur-3xl"></div>
+    </div>
+
+    <main class="mx-auto w-full max-w-7xl px-4 py-10 md:px-8">
+      <section class="rounded-3xl border border-slate-800/80 bg-slate-900/80 p-6 shadow-soft backdrop-blur md:p-8">
+        <header class="flex flex-col gap-6 border-b border-slate-800 pb-6 md:flex-row md:items-end md:justify-between">
+          <div class="max-w-3xl">
+            <p class="inline-flex rounded-full border border-cyan-400/40 bg-cyan-500/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-cyan-200">
+              Лабораторная работа №5
+            </p>
+            <h1 class="mt-4 text-3xl font-extrabold leading-tight md:text-5xl">Корзина интернет-магазина</h1>
+            <p class="mt-3 text-sm text-slate-300 md:text-base">
+              Товары добавляются в глобальное состояние приложения. Общая стоимость пересчитывается автоматически, а корзина появляется и скрывается с плавной анимацией.
+            </p>
+          </div>
+
+          <button
+            id="cart-toggle-btn"
+            type="button"
+            class="group inline-flex items-center gap-3 self-start rounded-full border border-slate-700 bg-slate-800/90 px-5 py-3 text-sm font-bold text-slate-100 transition hover:border-cyan-300 hover:bg-slate-800"
+            aria-controls="cart-panel"
+            aria-expanded="false"
+          >
+            <span>Открыть корзину</span>
+            <span
+              id="cart-count-badge"
+              class="inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-cyan-400 px-2 text-xs font-extrabold text-slate-950"
+            >
+              0
+            </span>
+          </button>
+        </header>
+
+        <section class="mt-6">
+          <div class="mb-4 flex items-center justify-between gap-3">
+            <h2 class="text-2xl font-bold">Каталог товаров</h2>
+            <p id="catalog-summary" class="text-sm text-slate-300">В корзине: 0 шт.</p>
+          </div>
+
+          <ul id="products-grid" class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"></ul>
+        </section>
+      </section>
+    </main>
+
+    <div
+      id="cart-overlay"
+      class="pointer-events-none fixed inset-0 z-30 bg-slate-950/55 opacity-0 transition-opacity duration-300"
+      aria-hidden="true"
+    ></div>
+
+    <aside
+      id="cart-panel"
+      class="pointer-events-none fixed right-0 top-0 z-40 flex h-screen w-full max-w-md translate-x-full flex-col border-l border-slate-800 bg-slate-900/95 opacity-0 shadow-soft transition-all duration-300"
+      aria-hidden="true"
+    >
+      <header class="flex items-center justify-between border-b border-slate-800 px-6 py-5">
+        <div>
+          <h2 class="text-xl font-bold">Корзина покупок</h2>
+          <p id="cart-subtitle" class="text-sm text-slate-300">0 товаров</p>
+        </div>
+
+        <button
+          id="close-cart-btn"
+          type="button"
+          class="rounded-full border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-200 transition hover:border-slate-500"
+        >
+          Закрыть
+        </button>
+      </header>
+
+      <div class="flex-1 overflow-y-auto px-6 py-5">
+        <p
+          id="empty-cart-state"
+          class="rounded-2xl border border-dashed border-slate-700 bg-slate-800/50 px-4 py-5 text-sm text-slate-300"
+        >
+          Корзина пуста. Добавьте товары из каталога.
+        </p>
+
+        <ul id="cart-items-list" class="hidden space-y-3"></ul>
+      </div>
+
+      <footer class="border-t border-slate-800 px-6 py-5">
+        <div class="rounded-2xl border border-slate-700/80 bg-slate-800/70 p-4">
+          <div class="flex items-center justify-between gap-2 text-sm text-slate-300">
+            <span>Количество:</span>
+            <span id="subtotal-count" class="font-semibold text-slate-100">0</span>
+          </div>
+          <div class="mt-2 flex items-center justify-between gap-2 text-base">
+            <span class="text-slate-300">Итого:</span>
+            <span id="subtotal-value" class="text-xl font-extrabold text-cyan-300">0 ₽</span>
+          </div>
+        </div>
+
+        <div class="mt-4 flex gap-3">
+          <button
+            id="clear-cart-btn"
+            type="button"
+            class="flex-1 rounded-full border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-bold text-slate-200 transition hover:border-slate-500 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Очистить
+          </button>
+          <button
+            type="button"
+            class="flex-1 rounded-full bg-cyan-400 px-4 py-2.5 text-sm font-extrabold text-slate-950 transition hover:bg-cyan-300"
+          >
+            Оформить
+          </button>
+        </div>
+      </footer>
+    </aside>
+
+    <script src="script.js"></script>
+  </body>
+</html>
