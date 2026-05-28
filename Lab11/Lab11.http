@@ -1,0 +1,39 @@
+@Lab11_HostAddress = http://localhost:5011
+
+### Home
+GET {{Lab11_HostAddress}}/
+Accept: application/json
+
+### Create author
+POST {{Lab11_HostAddress}}/api/authors
+Content-Type: application/json
+
+{
+  "name": "George Orwell",
+  "email": "orwell@example.com"
+}
+
+### Create category
+POST {{Lab11_HostAddress}}/api/categories
+Content-Type: application/json
+
+{
+  "name": "Dystopian",
+  "description": "Social science fiction"
+}
+
+### Create book
+POST {{Lab11_HostAddress}}/api/books
+Content-Type: application/json
+
+{
+  "title": "1984",
+  "year": 1949,
+  "price": 15.99,
+  "authorId": 1,
+  "categoryId": 1
+}
+
+### Get all books
+GET {{Lab11_HostAddress}}/api/books
+Accept: application/json

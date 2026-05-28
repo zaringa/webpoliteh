@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab13 - CSS + JavaScript + ASP.NET Core API</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+  <header class="hero">
+    <h1>Lab13: Клиентская часть в ASP.NET Core</h1>
+    <p>Подключение CSS/JS, запросы к backend и визуализация ответа сервера</p>
+  </header>
+
+  <main class="layout">
+    <section class="panel controls">
+      <h2>Параметры запроса</h2>
+      <div class="grid">
+        <label>
+          Поиск
+          <input id="searchInput" type="text" placeholder="например, monitor">
+        </label>
+        <label>
+          Категория
+          <select id="categorySelect">
+            <option value="">Все категории</option>
+          </select>
+        </label>
+        <label>
+          Минимальная цена
+          <input id="minPriceInput" type="number" min="0" step="100">
+        </label>
+        <label>
+          Максимальная цена
+          <input id="maxPriceInput" type="number" min="0" step="100">
+        </label>
+      </div>
+      <div class="actions">
+        <button id="loadButton" type="button">Загрузить данные</button>
+        <button id="sortButton" type="button">Сортировка: цена по возрастанию</button>
+        <button id="errorButton" type="button">Проверка ошибки backend</button>
+      </div>
+      <p id="statusText" class="status">Готово к загрузке.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Сводка</h2>
+      <div id="summaryCards" class="cards"></div>
+      <h3>Распределение по категориям</h3>
+      <div id="barsContainer" class="bars"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Товары</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Название</th>
+              <th>Категория</th>
+              <th>Цена</th>
+              <th>Остаток</th>
+              <th>Рейтинг</th>
+            </tr>
+          </thead>
+          <tbody id="productsBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

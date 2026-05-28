@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/zarina/webpoliteh/lab7/MyFirstWebApi.csproj",
+      "projectUniqueName": "/home/zarina/Данные/webpoliteh/lab7/MyFirstWebApi.csproj",
       "projectName": "MyFirstWebApi",
-      "projectPath": "/home/zarina/webpoliteh/lab7/MyFirstWebApi.csproj",
+      "projectPath": "/home/zarina/Данные/webpoliteh/lab7/MyFirstWebApi.csproj",
       "packagesPath": "/home/zarina/.nuget/packages/",
-      "outputPath": "/home/zarina/webpoliteh/lab7/obj/",
+      "outputPath": "/home/zarina/Данные/webpoliteh/lab7/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/zarina/.nuget/NuGet/NuGet.Config"
@@ -67,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.419/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.420/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

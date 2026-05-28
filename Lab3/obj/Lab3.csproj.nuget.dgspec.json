@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/zarina/webpoliteh/Lab3/Lab3.csproj": {}
+    "/home/zarina/Данные/webpoliteh/Lab3/Lab3.csproj": {}
   },
   "projects": {
-    "/home/zarina/webpoliteh/Lab3/Lab3.csproj": {
+    "/home/zarina/Данные/webpoliteh/Lab3/Lab3.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/zarina/webpoliteh/Lab3/Lab3.csproj",
+        "projectUniqueName": "/home/zarina/Данные/webpoliteh/Lab3/Lab3.csproj",
         "projectName": "Lab3",
-        "projectPath": "/home/zarina/webpoliteh/Lab3/Lab3.csproj",
+        "projectPath": "/home/zarina/Данные/webpoliteh/Lab3/Lab3.csproj",
         "packagesPath": "/home/zarina/.nuget/packages/",
-        "outputPath": "/home/zarina/webpoliteh/Lab3/obj/",
+        "outputPath": "/home/zarina/Данные/webpoliteh/Lab3/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/zarina/.nuget/NuGet/NuGet.Config"
@@ -71,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.415/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.420/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

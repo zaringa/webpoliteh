@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TRCJUQnyrIA=",
+  "dgSpecHash": "K6zkvQZqV/I=",
   "success": true,
-  "projectFilePath": "/home/zarina/webpoliteh/Lab3/Lab3.csproj",
+  "projectFilePath": "/home/zarina/Данные/webpoliteh/Lab3/Lab3.csproj",
   "expectedPackageFiles": [
     "/home/zarina/.nuget/packages/microsoft.aspnetcore.openapi/8.0.21/microsoft.aspnetcore.openapi.8.0.21.nupkg.sha512",
     "/home/zarina/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",

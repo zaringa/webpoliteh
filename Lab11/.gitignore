@@ -1,0 +1,4 @@
+bin/
+obj/
+lab11.db
+lab11.ensurecreated.backup.db

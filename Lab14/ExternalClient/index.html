@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab14 External CORS Client</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: #f2f6fb;
+      color: #1f2a36;
+    }
+    h1 { margin-top: 0; }
+    .panel {
+      background: #fff;
+      border: 1px solid #d8e1ee;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    button {
+      border: 1px solid #aac5ea;
+      background: #eaf2ff;
+      color: #0f4b9e;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover { background: #dceaff; }
+    code {
+      display: block;
+      background: #0d1726;
+      color: #d6e2f5;
+      padding: 10px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      margin-top: 10px;
+    }
+    input {
+      border: 1px solid #cad8eb;
+      border-radius: 8px;
+      padding: 8px 10px;
+      width: min(460px, 100%);
+    }
+  </style>
+</head>
+<body>
+  <h1>Lab14 External Client</h1>
+  <p>Этот файл запускается с другого origin (например, <code>http://localhost:5500</code>) и проверяет CORS API на <code>http://localhost:5014</code>.</p>
+
+  <div class="panel">
+    <label for="apiBase">API base URL:</label><br>
+    <input id="apiBase" value="http://localhost:5014">
+  </div>
+
+  <div class="panel">
+    <div class="actions">
+      <button data-endpoint="/api/cors/frontend-read">FrontendReadOnly (должен работать)</button>
+      <button data-endpoint="/api/cors/no-policy">No policy (браузер блокирует)</button>
+      <button data-endpoint="/api/cors/trusted">Trusted (браузер блокирует для :5500)</button>
+      <button data-endpoint="/api/cors/open">AnyOriginGet (должен работать)</button>
+    </div>
+    <code id="output">Нажмите кнопку для отправки запроса.</code>
+  </div>
+
+  <script>
+    const output = document.getElementById("output");
+    const apiBase = document.getElementById("apiBase");
+
+    async function callApi(endpoint) {
+      const url = `${apiBase.value}${endpoint}`;
+      output.textContent = `Request: ${url}\nLoading...`;
+
+      try {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "X-Client-Version": "1.0"
+          },
+          credentials: "include"
+        });
+
+        const text = await response.text();
+        output.textContent = `Status: ${response.status}\n\n${text}`;
+      } catch (error) {
+        output.textContent = `Fetch error (обычно CORS блокировка):\n${error}`;
+      }
+    }
+
+    document.querySelectorAll("button[data-endpoint]").forEach((button) => {
+      button.addEventListener("click", () => callApi(button.dataset.endpoint));
+    });
+  </script>
+</body>
+</html>

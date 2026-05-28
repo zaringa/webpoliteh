@@ -1,0 +1,15 @@
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/bin/Debug/net8.0/console
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/bin/Debug/net8.0/console.deps.json
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/bin/Debug/net8.0/console.runtimeconfig.json
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/bin/Debug/net8.0/console.dll
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/bin/Debug/net8.0/console.pdb
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/obj/Debug/net8.0/console.GeneratedMSBuildEditorConfig.editorconfig
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/obj/Debug/net8.0/console.AssemblyInfoInputs.cache
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/obj/Debug/net8.0/console.AssemblyInfo.cs
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/obj/Debug/net8.0/console.csproj.CoreCompileInputs.cache
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/obj/Debug/net8.0/console.sourcelink.json
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/obj/Debug/net8.0/console.dll
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/obj/Debug/net8.0/refint/console.dll
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/obj/Debug/net8.0/console.pdb
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/obj/Debug/net8.0/console.genruntimeconfig.cache
+/home/zarina/Данные/webpoliteh/hablons/lab1/console/console/obj/Debug/net8.0/ref/console.dll

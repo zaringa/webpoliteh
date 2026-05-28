@@ -1,0 +1,32 @@
+@Lab14_HostAddress = http://localhost:5014
+
+### Root info
+GET {{Lab14_HostAddress}}/
+Accept: application/json
+
+### No policy endpoint (no CORS headers expected)
+GET {{Lab14_HostAddress}}/api/cors/no-policy
+Origin: http://localhost:5500
+Accept: application/json
+
+### FrontendReadOnly - allowed origin and GET
+GET {{Lab14_HostAddress}}/api/cors/frontend-read
+Origin: http://localhost:5500
+X-Client-Version: 1.0
+Accept: application/json
+
+### FrontendReadOnly - disallowed origin
+GET {{Lab14_HostAddress}}/api/cors/frontend-read
+Origin: http://evil.example.com
+X-Client-Version: 1.0
+Accept: application/json
+
+### TrustedSpa - allowed only for 5173 origin
+GET {{Lab14_HostAddress}}/api/cors/trusted
+Origin: http://localhost:5173
+Accept: application/json
+
+### AnyOriginGet - any origin is allowed
+GET {{Lab14_HostAddress}}/api/cors/open
+Origin: http://random-client.local
+Accept: application/json

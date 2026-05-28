@@ -1,254 +1,309 @@
 const FILTERS = [
-  { id: "all", label: "Все" },
-  { id: "available", label: "Только доступные" },
-  { id: "unavailable", label: "Только выданные" },
+  { id: 'all', label: 'Все книги' },
+  { id: 'available', label: 'Только доступные' },
+  { id: 'unavailable', label: 'Только выданные' },
 ];
 
-const state = {
-  books: [],
-  activeFilter: "all",
-  isLoading: false,
-  error: null,
-};
-
-const filterControls = document.getElementById("filter-controls");
-const statusBox = document.getElementById("status-box");
-const booksList = document.getElementById("books-list");
-const countAll = document.getElementById("count-all");
-const countAvailable = document.getElementById("count-available");
-const countUnavailable = document.getElementById("count-unavailable");
+const SERVER_BOOKS = [
+  {
+    id: 'book-101',
+    title: 'Чистая архитектура',
+    author: 'Роберт Мартин',
+    genre: 'Разработка ПО',
+    year: 2018,
+    shelf: 'A-12',
+    available: true,
+    borrowedUntil: null,
+  },
+  {
+    id: 'book-102',
+    title: 'Грокаем алгоритмы',
+    author: 'Адитья Бхаргава',
+    genre: 'Алгоритмы',
+    year: 2017,
+    shelf: 'B-07',
+    available: false,
+    borrowedUntil: '03.05.2026',
+  },
+  {
+    id: 'book-103',
+    title: 'Паттерны объектно-ориентированного проектирования',
+    author: 'Э. Гамма, Р. Хелм, Р. Джонсон, Д. Влиссидес',
+    genre: 'Архитектура',
+    year: 2020,
+    shelf: 'A-03',
+    available: true,
+    borrowedUntil: null,
+  },
+  {
+    id: 'book-104',
+    title: 'Совершенный код',
+    author: 'Стив Макконнелл',
+    genre: 'Практика программирования',
+    year: 2021,
+    shelf: 'C-18',
+    available: false,
+    borrowedUntil: '29.04.2026',
+  },
+  {
+    id: 'book-105',
+    title: 'Refactoring',
+    author: 'Martin Fowler',
+    genre: 'Инженерные практики',
+    year: 2019,
+    shelf: 'B-01',
+    available: true,
+    borrowedUntil: null,
+  },
+  {
+    id: 'book-106',
+    title: 'Designing Data-Intensive Applications',
+    author: 'Martin Kleppmann',
+    genre: 'Системный дизайн',
+    year: 2018,
+    shelf: 'D-05',
+    available: false,
+    borrowedUntil: '06.05.2026',
+  },
+  {
+    id: 'book-107',
+    title: 'Computer Networking: A Top-Down Approach',
+    author: 'James Kurose, Keith Ross',
+    genre: 'Сети',
+    year: 2021,
+    shelf: 'C-02',
+    available: true,
+    borrowedUntil: null,
+  },
+  {
+    id: 'book-108',
+    title: 'Введение в теорию баз данных',
+    author: 'К. Дж. Дейт',
+    genre: 'Базы данных',
+    year: 2022,
+    shelf: 'A-19',
+    available: true,
+    borrowedUntil: null,
+  },
+];
 
 function fetchBooksFromServer() {
-  const serverBooks = [
-    {
-      id: "b-101",
-      title: "Чистая архитектура",
-      author: "Роберт Мартин",
-      year: 2018,
-      genre: "Разработка ПО",
-      available: true,
-    },
-    {
-      id: "b-102",
-      title: "Грокаем алгоритмы",
-      author: "Адитья Бхаргава",
-      year: 2017,
-      genre: "Алгоритмы",
-      available: false,
-    },
-    {
-      id: "b-103",
-      title: "Паттерны объектно-ориентированного проектирования",
-      author: "Гамма, Хелм, Джонсон, Влиссидес",
-      year: 2020,
-      genre: "Архитектура",
-      available: true,
-    },
-    {
-      id: "b-104",
-      title: "Совершенный код",
-      author: "Стив Макконнелл",
-      year: 2021,
-      genre: "Практика программирования",
-      available: false,
-    },
-    {
-      id: "b-105",
-      title: "Docker для профессионалов",
-      author: "Скотт Джонстон",
-      year: 2022,
-      genre: "DevOps",
-      available: true,
-    },
-    {
-      id: "b-106",
-      title: "Computer Networking: A Top-Down Approach",
-      author: "Kurose, Ross",
-      year: 2021,
-      genre: "Сети",
-      available: false,
-    },
-  ];
-
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(serverBooks);
-    }, 1300);
+      const payload = SERVER_BOOKS.map((book) => ({ ...book }));
+      resolve(payload);
+    }, 1200);
   });
 }
 
-function getFilteredBooks() {
-  if (state.activeFilter === "available") {
-    return state.books.filter((book) => book.available);
-  }
+const LibraryStats = {
+  name: 'LibraryStats',
+  props: {
+    total: {
+      type: Number,
+      required: true,
+    },
+    available: {
+      type: Number,
+      required: true,
+    },
+    unavailable: {
+      type: Number,
+      required: true,
+    },
+  },
+  template: `
+    <div class="grid gap-3 sm:grid-cols-3">
+      <article class="rounded-2xl border border-slate-200 bg-slate-50/80 p-4">
+        <p class="text-xs uppercase tracking-[0.1em] text-slate-500">Всего книг</p>
+        <p class="mt-1 text-2xl font-extrabold text-slate-900">{{ total }}</p>
+      </article>
 
-  if (state.activeFilter === "unavailable") {
-    return state.books.filter((book) => !book.available);
-  }
+      <article class="rounded-2xl border border-emerald-200 bg-emerald-50/80 p-4">
+        <p class="text-xs uppercase tracking-[0.1em] text-emerald-700">Доступно</p>
+        <p class="mt-1 text-2xl font-extrabold text-emerald-700">{{ available }}</p>
+      </article>
 
-  return state.books;
-}
+      <article class="rounded-2xl border border-orange-200 bg-orange-50/80 p-4">
+        <p class="text-xs uppercase tracking-[0.1em] text-orange-700">Выдано</p>
+        <p class="mt-1 text-2xl font-extrabold text-orange-700">{{ unavailable }}</p>
+      </article>
+    </div>
+  `,
+};
 
-function updateCounters() {
-  const availableCount = state.books.filter((book) => book.available).length;
-
-  countAll.textContent = String(state.books.length);
-  countAvailable.textContent = String(availableCount);
-  countUnavailable.textContent = String(state.books.length - availableCount);
-}
-
-function renderFilters() {
-  filterControls.innerHTML = FILTERS.map((filter) => {
-    const isActive = filter.id === state.activeFilter;
-    const baseClasses =
-      "rounded-full border px-4 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400";
-    const activeClasses = isActive
-      ? "border-cyan-600 bg-cyan-600 text-white"
-      : "border-slate-300 bg-white text-slate-700 hover:border-cyan-400 hover:text-cyan-700";
-
-    return `
+const FilterTabs = {
+  name: 'FilterTabs',
+  props: {
+    filters: {
+      type: Array,
+      required: true,
+    },
+    counts: {
+      type: Object,
+      required: true,
+    },
+    modelValue: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['update:modelValue'],
+  template: `
+    <div class="flex flex-wrap gap-2" role="tablist" aria-label="Фильтр книг">
       <button
+        v-for="filter in filters"
+        :key="filter.id"
         type="button"
-        class="${baseClasses} ${activeClasses}"
-        data-filter="${filter.id}"
         role="tab"
-        aria-selected="${isActive}"
+        class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+        :class="filter.id === modelValue
+          ? 'border-slate-900 bg-slate-900 text-white'
+          : 'border-slate-300 bg-white text-slate-700 hover:border-slate-500'"
+        :aria-selected="filter.id === modelValue"
+        @click="$emit('update:modelValue', filter.id)"
       >
-        ${filter.label}
-      </button>
-    `;
-  }).join("");
-}
-
-function renderStatus() {
-  if (state.isLoading) {
-    statusBox.innerHTML = `
-      <div class="flex items-center gap-3">
-        <span class="inline-block h-5 w-5 animate-spin rounded-full border-2 border-cyan-600 border-r-transparent"></span>
-        <p class="font-medium">Загрузка книг с сервера...</p>
-      </div>
-    `;
-    return;
-  }
-
-  if (state.error) {
-    statusBox.innerHTML = `
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <p class="font-medium text-red-700">${state.error}</p>
-        <button
-          type="button"
-          id="retry-btn"
-          class="rounded-full border border-red-300 bg-white px-4 py-2 text-sm font-semibold text-red-700 transition hover:border-red-500 hover:bg-red-50"
+        <span>{{ filter.label }}</span>
+        <span
+          class="rounded-full px-2 py-0.5 text-xs"
+          :class="filter.id === modelValue ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'"
         >
-          Повторить загрузку
-        </button>
-      </div>
-    `;
-    return;
-  }
+          {{ counts[filter.id] ?? 0 }}
+        </span>
+      </button>
+    </div>
+  `,
+};
 
-  const filteredBooks = getFilteredBooks();
+const BookGrid = {
+  name: 'BookGrid',
+  props: {
+    books: {
+      type: Array,
+      required: true,
+    },
+  },
+  template: `
+    <ul class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <li
+        v-for="book in books"
+        :key="book.id"
+        class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+      >
+        <div class="flex items-start justify-between gap-3">
+          <p class="text-xs font-semibold uppercase tracking-[0.1em] text-slate-500">{{ book.genre }}</p>
+          <span
+            class="rounded-full border px-3 py-1 text-xs font-bold"
+            :class="book.available
+              ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+              : 'border-orange-200 bg-orange-50 text-orange-700'"
+          >
+            {{ book.available ? 'Доступна' : 'Выдана' }}
+          </span>
+        </div>
 
-  if (filteredBooks.length === 0 && state.books.length > 0) {
-    statusBox.innerHTML =
-      '<p class="font-medium">По выбранному фильтру книги не найдены.</p>';
-    return;
-  }
+        <h2 class="mt-3 text-lg font-bold leading-snug text-slate-900">{{ book.title }}</h2>
+        <p class="mt-1 text-sm text-slate-600">{{ book.author }}</p>
 
-  if (state.books.length === 0) {
-    statusBox.innerHTML = '<p class="font-medium">Каталог пока пуст.</p>';
-    return;
-  }
+        <div class="mt-4 grid grid-cols-2 gap-2 text-sm text-slate-600">
+          <p class="rounded-lg bg-slate-50 px-3 py-2">Год: <span class="font-semibold text-slate-800">{{ book.year }}</span></p>
+          <p class="rounded-lg bg-slate-50 px-3 py-2">Полка: <span class="font-semibold text-slate-800">{{ book.shelf }}</span></p>
+        </div>
 
-  statusBox.innerHTML = `
-    <p class="font-medium">
-      Показано книг: <span class="font-extrabold text-cyan-700">${filteredBooks.length}</span> из
-      <span class="font-extrabold text-cyan-700">${state.books.length}</span>.
-    </p>
-  `;
-}
+        <p
+          v-if="book.available"
+          class="mt-3 text-sm font-medium text-emerald-700"
+        >
+          Можно взять в читальном зале прямо сейчас.
+        </p>
+        <p
+          v-else
+          class="mt-3 text-sm font-medium text-orange-700"
+        >
+          Возврат ожидается: {{ book.borrowedUntil }}.
+        </p>
+      </li>
+    </ul>
+  `,
+};
 
-function renderBooks() {
-  if (state.isLoading || state.error) {
-    booksList.innerHTML = "";
-    return;
-  }
+const { createApp, ref, computed, onMounted } = Vue;
 
-  const filteredBooks = getFilteredBooks();
+createApp({
+  components: {
+    LibraryStats,
+    FilterTabs,
+    BookGrid,
+  },
+  setup() {
+    const books = ref([]);
+    const activeFilter = ref('all');
+    const isLoading = ref(false);
+    const errorMessage = ref('');
 
-  if (filteredBooks.length === 0) {
-    booksList.innerHTML = "";
-    return;
-  }
+    const availableCount = computed(() => {
+      return books.value.filter((book) => book.available).length;
+    });
 
-  booksList.innerHTML = filteredBooks
-    .map((book) => {
-      const availabilityText = book.available ? "Доступна" : "Выдана";
-      const availabilityClasses = book.available
-        ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-        : "border-orange-200 bg-orange-50 text-orange-700";
+    const unavailableCount = computed(() => {
+      return books.value.length - availableCount.value;
+    });
 
-      return `
-        <li class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-          <div class="flex items-start justify-between gap-2">
-            <p class="text-sm font-semibold text-slate-500">${book.genre}</p>
-            <span class="rounded-full border px-3 py-1 text-xs font-bold ${availabilityClasses}">
-              ${availabilityText}
-            </span>
-          </div>
+    const filterCounts = computed(() => {
+      return {
+        all: books.value.length,
+        available: availableCount.value,
+        unavailable: unavailableCount.value,
+      };
+    });
 
-          <h2 class="mt-3 text-lg font-bold leading-snug">${book.title}</h2>
-          <p class="mt-2 text-sm text-slate-600">${book.author}</p>
+    const filteredBooks = computed(() => {
+      if (activeFilter.value === 'available') {
+        return books.value.filter((book) => book.available);
+      }
 
-          <div class="mt-4 border-t border-slate-100 pt-3 text-sm text-slate-500">
-            Год издания: <span class="font-semibold text-slate-700">${book.year}</span>
-          </div>
-        </li>
-      `;
-    })
-    .join("");
-}
+      if (activeFilter.value === 'unavailable') {
+        return books.value.filter((book) => !book.available);
+      }
 
-function render() {
-  renderFilters();
-  updateCounters();
-  renderStatus();
-  renderBooks();
-}
+      return books.value;
+    });
 
-filterControls.addEventListener("click", (event) => {
-  const filterButton = event.target.closest("[data-filter]");
-  if (!filterButton) {
-    return;
-  }
+    function setFilter(nextFilter) {
+      activeFilter.value = nextFilter;
+    }
 
-  state.activeFilter = filterButton.dataset.filter;
-  render();
-});
+    async function loadBooks() {
+      isLoading.value = true;
+      errorMessage.value = '';
 
-statusBox.addEventListener("click", (event) => {
-  const retryButton = event.target.closest("#retry-btn");
-  if (!retryButton) {
-    return;
-  }
+      try {
+        const serverBooks = await fetchBooksFromServer();
+        books.value = serverBooks;
+      } catch (error) {
+        errorMessage.value =
+          'Не удалось загрузить каталог. Проверьте подключение и попробуйте снова.';
+      } finally {
+        isLoading.value = false;
+      }
+    }
 
-  loadBooks();
-});
+    onMounted(() => {
+      loadBooks();
+    });
 
-async function loadBooks() {
-  state.isLoading = true;
-  state.error = null;
-  render();
-
-  try {
-    const booksFromServer = await fetchBooksFromServer();
-    state.books = booksFromServer;
-  } catch (error) {
-    state.error = "Не удалось получить каталог. Проверьте подключение и попробуйте снова.";
-  } finally {
-    state.isLoading = false;
-    render();
-  }
-}
-
-loadBooks();
+    return {
+      filters: FILTERS,
+      books,
+      activeFilter,
+      isLoading,
+      errorMessage,
+      availableCount,
+      unavailableCount,
+      filterCounts,
+      filteredBooks,
+      setFilter,
+      loadBooks,
+    };
+  },
+}).mount('#app');

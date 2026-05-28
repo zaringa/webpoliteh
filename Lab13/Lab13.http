@@ -1,0 +1,20 @@
+@Lab13_HostAddress = http://localhost:5013
+
+### Home page
+GET {{Lab13_HostAddress}}/
+
+### Catalog all
+GET {{Lab13_HostAddress}}/api/catalog
+Accept: application/json
+
+### Catalog filtered
+GET {{Lab13_HostAddress}}/api/catalog?category=Displays&minPrice=10000
+Accept: application/json
+
+### Summary filtered
+GET {{Lab13_HostAddress}}/api/catalog/summary?search=monitor
+Accept: application/json
+
+### Categories
+GET {{Lab13_HostAddress}}/api/catalog/categories
+Accept: application/json

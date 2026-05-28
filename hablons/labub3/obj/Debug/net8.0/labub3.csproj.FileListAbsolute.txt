@@ -1,0 +1,15 @@
+/home/zarina/Данные/webpoliteh/hablons/labub3/bin/Debug/net8.0/labub3
+/home/zarina/Данные/webpoliteh/hablons/labub3/bin/Debug/net8.0/labub3.deps.json
+/home/zarina/Данные/webpoliteh/hablons/labub3/bin/Debug/net8.0/labub3.runtimeconfig.json
+/home/zarina/Данные/webpoliteh/hablons/labub3/bin/Debug/net8.0/labub3.dll
+/home/zarina/Данные/webpoliteh/hablons/labub3/bin/Debug/net8.0/labub3.pdb
+/home/zarina/Данные/webpoliteh/hablons/labub3/obj/Debug/net8.0/labub3.GeneratedMSBuildEditorConfig.editorconfig
+/home/zarina/Данные/webpoliteh/hablons/labub3/obj/Debug/net8.0/labub3.AssemblyInfoInputs.cache
+/home/zarina/Данные/webpoliteh/hablons/labub3/obj/Debug/net8.0/labub3.AssemblyInfo.cs
+/home/zarina/Данные/webpoliteh/hablons/labub3/obj/Debug/net8.0/labub3.csproj.CoreCompileInputs.cache
+/home/zarina/Данные/webpoliteh/hablons/labub3/obj/Debug/net8.0/labub3.sourcelink.json
+/home/zarina/Данные/webpoliteh/hablons/labub3/obj/Debug/net8.0/labub3.dll
+/home/zarina/Данные/webpoliteh/hablons/labub3/obj/Debug/net8.0/refint/labub3.dll
+/home/zarina/Данные/webpoliteh/hablons/labub3/obj/Debug/net8.0/labub3.pdb
+/home/zarina/Данные/webpoliteh/hablons/labub3/obj/Debug/net8.0/labub3.genruntimeconfig.cache
+/home/zarina/Данные/webpoliteh/hablons/labub3/obj/Debug/net8.0/ref/labub3.dll

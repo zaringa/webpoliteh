@@ -1,0 +1,45 @@
+@Lab12_HostAddress = http://localhost:5012
+
+### Home
+GET {{Lab12_HostAddress}}/
+Accept: application/json
+
+### Create valid product
+POST {{Lab12_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Mouse Logitech",
+  "sku": "MOU-001",
+  "price": 1200.00,
+  "discountPrice": 1000.00,
+  "stockQuantity": 15
+}
+
+### ModelState business logic error (discount >= price)
+POST {{Lab12_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Broken Discount",
+  "sku": "MOU-002",
+  "price": 1000.00,
+  "discountPrice": 1200.00,
+  "stockQuantity": 5
+}
+
+### Database error filter (duplicate SKU)
+POST {{Lab12_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Duplicate SKU",
+  "sku": "MOU-001",
+  "price": 900.00,
+  "discountPrice": 800.00,
+  "stockQuantity": 7
+}
+
+### Global unhandled exception
+GET {{Lab12_HostAddress}}/api/errors/unhandled
+Accept: application/json
