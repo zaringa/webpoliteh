@@ -1,0 +1,199 @@
+﻿@page
+@model StateLab.Pages.IndexModel
+
+@{
+    ViewData["Title"] = "Работа с состояниями";
+}
+
+<style>
+    .container {
+        max-width: 950px;
+        margin: 0 auto;
+        font-family: Arial, sans-serif;
+    }
+
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 18px;
+        margin-bottom: 18px;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 6px;
+        font-weight: bold;
+    }
+
+    input {
+        padding: 8px;
+        width: 280px;
+        max-width: 100%;
+    }
+
+    button {
+        padding: 8px 12px;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+    code, pre {
+        background: #f4f4f4;
+        padding: 6px;
+        border-radius: 5px;
+    }
+
+    .value {
+        font-weight: bold;
+    }
+</style>
+
+<div class="container">
+    <h1>Работа с состояниями в ASP.NET Core</h1>
+
+    <div class="card">
+        <h2>1–2. Cookies и серверная сессия</h2>
+
+        <form method="post" asp-page-handler="SaveServerState">
+            <label for="UserName">Введите имя пользователя:</label>
+            <input id="UserName" name="UserName" value="@Model.CookieUserName" />
+
+            <br />
+            <button type="submit">Сохранить в cookie и session</button>
+        </form>
+
+        <form method="post" asp-page-handler="ClearServerState">
+            <button type="submit">Очистить cookie и session</button>
+        </form>
+
+        <p>Значение из cookie: <span class="value">@Model.CookieUserName</span></p>
+        <p>Значение из session: <span class="value">@Model.SessionUserName</span></p>
+        <p>Количество обращений в рамках server session: <span class="value">@Model.SessionVisitCount</span></p>
+    </div>
+
+    <div class="card">
+        <h2>3. localStorage</h2>
+
+        <label for="localName">Имя для localStorage:</label>
+        <input id="localName" />
+
+        <br />
+        <button type="button" id="saveLocal">Сохранить в localStorage</button>
+        <button type="button" id="clearLocal">Очистить localStorage</button>
+
+        <p>Значение из localStorage: <span id="localResult" class="value">нет значения</span></p>
+    </div>
+
+    <div class="card">
+        <h2>4. sessionStorage</h2>
+
+        <label for="sessionNote">Временная заметка для sessionStorage:</label>
+        <input id="sessionNote" />
+
+        <br />
+        <button type="button" id="saveSession">Сохранить в sessionStorage</button>
+        <button type="button" id="clearSession">Очистить sessionStorage</button>
+
+        <p>Значение из sessionStorage: <span id="sessionResult" class="value">нет значения</span></p>
+    </div>
+
+    <div class="card">
+        <h2>5. Передача данных между client и backend</h2>
+
+        <p>
+            В этом примере JavaScript отправляет имя на backend через <code>fetch</code>.
+            Backend сохраняет имя в cookie и session, а затем клиент запрашивает сохранённое состояние обратно.
+        </p>
+
+        <label for="apiName">Имя для отправки на backend:</label>
+        <input id="apiName" />
+
+        <br />
+        <button type="button" id="sendApi">Отправить на backend</button>
+
+        <h3>Ответ backend:</h3>
+        <pre id="apiResult">Ответ пока не получен</pre>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // ---------- localStorage ----------
+        const localName = document.getElementById("localName");
+        const localResult = document.getElementById("localResult");
+
+        function renderLocalStorage() {
+            const saved = localStorage.getItem("StateLab.LocalUserName");
+            localResult.textContent = saved || "нет значения";
+            localName.value = saved || "";
+        }
+
+        document.getElementById("saveLocal").addEventListener("click", function () {
+            const value = localName.value.trim() || "Гость localStorage";
+            localStorage.setItem("StateLab.LocalUserName", value);
+            renderLocalStorage();
+        });
+
+        document.getElementById("clearLocal").addEventListener("click", function () {
+            localStorage.removeItem("StateLab.LocalUserName");
+            renderLocalStorage();
+        });
+
+        renderLocalStorage();
+
+        // ---------- sessionStorage ----------
+        const sessionNote = document.getElementById("sessionNote");
+        const sessionResult = document.getElementById("sessionResult");
+
+        function renderSessionStorage() {
+            const saved = sessionStorage.getItem("StateLab.SessionNote");
+            sessionResult.textContent = saved || "нет значения";
+            sessionNote.value = saved || "";
+        }
+
+        document.getElementById("saveSession").addEventListener("click", function () {
+            const value = sessionNote.value.trim() || "Временная заметка";
+            sessionStorage.setItem("StateLab.SessionNote", value);
+            renderSessionStorage();
+        });
+
+        document.getElementById("clearSession").addEventListener("click", function () {
+            sessionStorage.removeItem("StateLab.SessionNote");
+            renderSessionStorage();
+        });
+
+        renderSessionStorage();
+
+        // ---------- Передача данных на backend ----------
+        const apiName = document.getElementById("apiName");
+        const apiResult = document.getElementById("apiResult");
+
+        document.getElementById("sendApi").addEventListener("click", async function () {
+            const name = apiName.value.trim() || "Гость API";
+
+            const postResponse = await fetch("/api/state/name", {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name: name })
+            });
+
+            const postData = await postResponse.json();
+
+            const getResponse = await fetch("/api/state/name", {
+                method: "GET",
+                credentials: "same-origin"
+            });
+
+            const getData = await getResponse.json();
+
+            apiResult.textContent = JSON.stringify({
+                postResult: postData,
+                currentServerState: getData
+            }, null, 2);
+        });
+    });
+</script>

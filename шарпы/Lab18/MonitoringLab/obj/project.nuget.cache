@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "dgSpecHash": "jCnMblqBCNo=",
+  "success": true,
+  "projectFilePath": "/home/zarina/Данные/webpoliteh/Lab18/MonitoringLab/MonitoringLab.csproj",
+  "expectedPackageFiles": [
+    "/home/zarina/.nuget/packages/microsoft.extensions.configuration/8.0.0/microsoft.extensions.configuration.8.0.0.nupkg.sha512",
+    "/home/zarina/.nuget/packages/microsoft.extensions.configuration.abstractions/8.0.0/microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
+    "/home/zarina/.nuget/packages/microsoft.extensions.configuration.binder/8.0.0/microsoft.extensions.configuration.binder.8.0.0.nupkg.sha512",
+    "/home/zarina/.nuget/packages/microsoft.extensions.dependencyinjection/8.0.0/microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512",
+    "/home/zarina/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "/home/zarina/.nuget/packages/microsoft.extensions.diagnostics.abstractions/8.0.0/microsoft.extensions.diagnostics.abstractions.8.0.0.nupkg.sha512",
+    "/home/zarina/.nuget/packages/microsoft.extensions.fileproviders.abstractions/8.0.0/microsoft.extensions.fileproviders.abstractions.8.0.0.nupkg.sha512",
+    "/home/zarina/.nuget/packages/microsoft.extensions.hosting.abstractions/8.0.0/microsoft.extensions.hosting.abstractions.8.0.0.nupkg.sha512",
+    "/home/zarina/.nuget/packages/microsoft.extensions.logging/8.0.0/microsoft.extensions.logging.8.0.0.nupkg.sha512",
+    "/home/zarina/.nuget/packages/microsoft.extensions.logging.abstractions/8.0.0/microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
+    "/home/zarina/.nuget/packages/microsoft.extensions.logging.configuration/8.0.0/microsoft.extensions.logging.configuration.8.0.0.nupkg.sha512",
+    "/home/zarina/.nuget/packages/microsoft.extensions.options/8.0.0/microsoft.extensions.options.8.0.0.nupkg.sha512",
+    "/home/zarina/.nuget/packages/microsoft.extensions.options.configurationextensions/8.0.0/microsoft.extensions.options.configurationextensions.8.0.0.nupkg.sha512",
+    "/home/zarina/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "/home/zarina/.nuget/packages/opentelemetry/1.15.3/opentelemetry.1.15.3.nupkg.sha512",
+    "/home/zarina/.nuget/packages/opentelemetry.api/1.15.3/opentelemetry.api.1.15.3.nupkg.sha512",
+    "/home/zarina/.nuget/packages/opentelemetry.api.providerbuilderextensions/1.15.3/opentelemetry.api.providerbuilderextensions.1.15.3.nupkg.sha512",
+    "/home/zarina/.nuget/packages/opentelemetry.exporter.prometheus.aspnetcore/1.15.3-beta.1/opentelemetry.exporter.prometheus.aspnetcore.1.15.3-beta.1.nupkg.sha512",
+    "/home/zarina/.nuget/packages/opentelemetry.extensions.hosting/1.15.3/opentelemetry.extensions.hosting.1.15.3.nupkg.sha512",
+    "/home/zarina/.nuget/packages/opentelemetry.instrumentation.aspnetcore/1.15.2/opentelemetry.instrumentation.aspnetcore.1.15.2.nupkg.sha512",
+    "/home/zarina/.nuget/packages/opentelemetry.instrumentation.http/1.15.1/opentelemetry.instrumentation.http.1.15.1.nupkg.sha512",
+    "/home/zarina/.nuget/packages/opentelemetry.instrumentation.process/1.15.1-beta.1/opentelemetry.instrumentation.process.1.15.1-beta.1.nupkg.sha512",
+    "/home/zarina/.nuget/packages/opentelemetry.instrumentation.runtime/1.15.1/opentelemetry.instrumentation.runtime.1.15.1.nupkg.sha512",
+    "/home/zarina/.nuget/packages/system.diagnostics.diagnosticsource/10.0.0/system.diagnostics.diagnosticsource.10.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

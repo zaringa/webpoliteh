@@ -18,7 +18,6 @@ namespace ObserverGame
 
     
     // 2. Интерфейс события
-    
 
     public interface IGameEvent
     {
@@ -97,14 +96,10 @@ namespace ObserverGame
             }
         }
 
-        
-
         public static void SubscribeToAll(Action<IGameEvent> listener)
         {
             allSubscribers += listener;
         }
-
-        
 
         public static void Publish<TEvent>(TEvent gameEvent)
             where TEvent : IGameEvent
@@ -113,8 +108,6 @@ namespace ObserverGame
             PublishCategory(gameEvent);
             PublishAll(gameEvent);
         }
-
-        
 
         private static void PublishTyped<TEvent>(TEvent gameEvent)
             where TEvent : IGameEvent
